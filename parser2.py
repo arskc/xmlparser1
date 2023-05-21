@@ -71,6 +71,19 @@ if vendor is not None:
 else:
     vendor_list.append({'vendor_name': None, 'contact_name': None, 'contact_email': None})
 
+provider_list = []
+provider = root.find('.//provider')
+if provider is not None:
+    provider_name = provider.find('name')
+    name = provider_name.text if provider_name is not None else None
+    provider_email = provider.find('email')
+    email = provider_email.text if provider_name is not None else None
+    provider_url = provider.find('url')
+    url = provider_url.text if provider_url is not None else None
+    provider_list.append({'provider_name': name, 'provider_email': email, 'provider_url': url})
+else:
+    provider_list.append({'provider_name': None, 'provider_email': None, 'provider_url': None})
+
 
 #-------------------------------------------------------Display-------------------------------------------------------
 
@@ -98,3 +111,9 @@ for customer in customer_list:
 print("\nVendor List:")
 for vendor in vendor_list:
     print(vendor)
+
+print("\nProvider List:")
+for provider in provider_list:
+    print(provider)
+
+print()
