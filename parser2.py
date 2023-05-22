@@ -2,9 +2,7 @@ import xml.etree.ElementTree as ET
 
 class ParseXML():
     #-------------------------------------------------------Load Document-------------------------------------------------------
-    def __init__(self, lead):
-        self.tree = ET.parse(lead)
-        self.root = self.tree.getroot()
+    def __init__(self):
         self.prospect_status = []
         self.id_list = []
         self.request_date_list = []
@@ -14,7 +12,9 @@ class ParseXML():
         self.provider_list = []
 
     #-----------------------------------------------------Parse Information-----------------------------------------------------
-    def parse(self):
+    def parse(self, lead):
+        self.tree = ET.parse(lead)
+        self.root = self.tree.getroot()
         prospect = self.root.find('.//prospect')
         status = prospect.get('status') if prospect is not None else None
         self.prospect_status.append({'status': status})
@@ -120,6 +120,6 @@ class ParseXML():
 
 if __name__ == '__main__':
     l1 = 'lead1.xml'
-    a = ParseXML(l1)
-    a.parse()
+    a = ParseXML()
+    a.parse(l1)
     a.displayinfo()
