@@ -14,7 +14,7 @@ class DataXML:
         pass
     
     def displayinfo(self):
-        print("Prospect Status:")
+        print("\nProspect Status:")
         for status in self.prospect_status:
             print(status)
 
@@ -42,6 +42,7 @@ class DataXML:
         for provider in self.provider_list:
             print(provider)
 
+        print("\n----------------------------------------------------------------------------------------------------------------------")
         print()
 
 class ParseXML(DataXML):
@@ -124,6 +125,9 @@ class ParseXML(DataXML):
 
 if __name__ == '__main__':
     l1 = 'lead1.xml'
+    l2 = 'x1.xml'
     a = ParseXML()
     a.parse(l1)
+    a.displayinfo()
+    a.parse(l2)
     a.displayinfo()
