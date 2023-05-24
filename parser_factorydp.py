@@ -1,13 +1,17 @@
 import xml.etree.ElementTree as ET
 from datetime import datetime
+import json
+import re
 
 class ADF:
     def __init__(self):
         self.adf_info = {}
         self.tree = None
         self.root = None
+        self.lead = None
     
     def ParseADF(self, lead):
+        self.lead = lead
         self.tree = ET.parse(lead)
         self.root = self.tree.getroot()
         prospect = Prospect().ParseProspect(self.root)
@@ -22,6 +26,14 @@ class ADF:
                               'customer': customer,
                               'vendor': vendor,
                               'provider': provider})
+        
+    def CreateJSONObject(self):
+        j = json.dumps(self.adf_info)
+        jfile = re.sub(".xml", "", self.lead) + '.json'
+        with open(jfile, 'w') as f:
+            f.write(j)
+            f.close()
+        
     def DisplayADF(self):
         print("\n----------------------------------------------------------------------------------------------------------------------\n")
         print(self.adf_info)
@@ -510,6 +522,7 @@ def main():
     adf = ADF()
     adf.ParseADF(lead1)
     adf.DisplayADF()
+    adf.CreateJSONObject()
 
 if __name__ == '__main__':
     main()
